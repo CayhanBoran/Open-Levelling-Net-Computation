@@ -1,0 +1,99 @@
+print("This program calculates the elevations in open levelling net")
+print("-"*60)
+
+# Taking Inputs
+a_0514 = input("Enter the point ID of known point  :")
+print("Enter the elevation of point", a_0514,"(m)   :",end="")
+b_0514 = float(input())
+c_0514 = int(input("Enter the number of unknown points  :"))
+# Taking Inputs
+
+list1 = [] # unknown points ID's
+list1.append(a_0514)
+
+# Adding and inputting the unknown points ID's to the list 1
+for i in range(1, c_0514+1):
+    print("Enter the point ID of unknown point ", i, ":", end=" ")
+    i = input()
+    list1.append(i)
+# Adding and inputting the unknown points ID's to the list 1
+
+# FS & BS Defining
+FS = []
+BS = []
+# FS & BS Defining
+
+# Adding and inputting the BS reading to the list BS
+print("Enter the BS reading of point", a_0514,"(m)  :",end="")
+d_0514=float(input())
+BS.append(d_0514)
+# Adding and inputting the BS reading to the list BS
+
+# Adding and inputting the FS reading to the list FS
+print("Enter the FS reading of point", list1[1],"(m)  :",end="")
+e_0514=float(input())
+FS.append(e_0514)
+# Adding and inputting the FS reading to the list FS
+
+# Adding and inputting the BS reading to the list BS
+print("Enter the BS reading of point", list1[1],"(m)  :",end="")
+f_0514=float(input())
+BS.append(f_0514)
+# Adding and inputting the BS reading to the list BS
+
+
+# Adding and inputting the BS and FS readings to the list BS and FS
+for i in range(len(list1)-3):
+    print("Enter the FS reading of point", i+1, "(m)  :", end="")
+    b = float(input())
+    FS.append(b)
+    print("Enter the BS reading of point", i + 1, "(m)  :", end="")
+    a = float(input())
+    BS.append(a)
+# Adding and inputting the BS and FS readings to the list BS and FS
+
+# Adding and inputting the FS reading to the list FS
+print("Enter the FS reading of point", list1[-1] ,"(m)  :",end="")
+g_0514=float(input())
+FS.append(g_0514)
+# Adding and inputting the FS reading to the list FS
+
+# CALCULATION OF DELTA_H
+i = 0
+delta_H = []
+while i < int(c_0514):
+    delta_H.append(float(BS[i]) - float(FS[i]))
+    i += 1
+
+# CALCULATION OF DELTA_H
+
+# CALCULATION OF ELEVATION
+elevation=[]
+elevation.append(b_0514)
+
+for i in range(len(delta_H)):
+    el = elevation[i]+delta_H[i]
+    elevation.append(el)
+# CALCULATION OF ELEVATION
+
+# Proper Format
+delta_H = ["%.3f" % member for member in delta_H]
+elevation = ["%.3f" % member for member in elevation]
+# Proper Format
+
+# Printing and making table
+
+print("-"*41)
+print("%-15s %-15s  %s" %("Point ID"," Point ID","Delta H"))
+print("-"*41)
+for i in range(len(list1)-1):
+    print("%-15s %-15s  %s" %(list1[i],list1[i+1],delta_H[i]))
+print("-"*41)
+
+
+print("%-15s   %s" %("Point ID","Elevation"))
+print("-"*28)
+for i in range(int(c_0514)):
+    print("%-15s   %s" % (list1[i+1], elevation[i+1]))
+print("-"*28)
+
